@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - CustomerHub</title>
+    <link rel="stylesheet" href="{% static 'erp/styles.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("{% static 'images/bc1.png' %}");
+            background-size: cover;
+        }
+
+        /* Registration form styling */
+        .register-container {
+            background-color:  #2e4053;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 50px;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            float: left;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .btn-register {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-register:hover {
+            background-color: darkorange;
+        }
+
+        /* Button container to align both buttons next to each other */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Back button styling */
+        .back-button {
+            background-color: #2e4053;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: darkorange;
+        }
+
+        /* Modal styling */
+        .modal-content {
+            background-color:  #ebf5fb; /* Dark transparent background */
+            color: black;
+            border-radius: 10px;
+             /* Border matching theme */
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+
+        .modal-title {
+            color: black;
+            font-weight: bold;
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background-color: #2e4053;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: darkorange;
+        }
+
+        /* Centering the modal vertically and horizontally */
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Registration Form -->
+<div class="form-center">
+    <div class="register-container">
+        <h2>Register</h2>
+        <form id="registerForm" method="POST" action="{% url 'registration' %}">
+            {% csrf_token %}
+
+            <!-- Username field -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                {% if form.username.errors %}
+                    <div class="alert alert-danger mt-2">
+                        {% for error in form.username.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Email field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                {% if form.email.errors %}
+                    <div class="alert alert-danger mt-2">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Password field -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                {% if form.password.errors %}
+                    <div class="alert alert-danger mt-2">
+                        {% for error in form.password.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Confirm Password field -->
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                {% if form.confirm_password.errors %}
+                    <div class="alert alert-danger mt-2">
+                        {% for error in form.confirm_password.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-register">Register</button>
+
+            <!-- Button Container -->
+            <div class="button-container">
+                <!-- Back Button -->
+                <a href="{% url 'base' %}" class="btn btn-register">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal for "Password Mismatch" or "Account Created" message -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalMessage">
+                <!-- Error message will be inserted dynamically here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS & jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Show the modal if there is an error (such as mismatched passwords)
+    {% if error_message %}
+        document.getElementById("modalMessage").textContent = "{{ error_message }}";
+        $('#errorModal').modal('show');
+    {% endif %}
+</script>
+
+</body>
+</html>

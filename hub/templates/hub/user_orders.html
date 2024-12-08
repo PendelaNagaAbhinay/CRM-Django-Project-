@@ -1,0 +1,75 @@
+<!-- user_orders.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h2>Your Orders</h2>
+
+<div class="order-list">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Name</th>
+                <th>Status</th>
+                <th>Description</th>
+                <th>Actions</th> <!-- Column for actions (delete) -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.name }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.description }}</td>
+                <td>
+                    <!-- Delete Button -->
+                    <button type="button" class="btn btn-danger delete-order" data-order-id="{{ order.id }}">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No orders found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Ensure jQuery is included -->
+<script>
+    $(document).ready(function() {
+        // Handle order deletion via AJAX
+        $(document).on('click', '.delete-order', function() {
+            var orderId = $(this).data('order-id'); // Get the order ID from data attribute
+
+            // Confirm the deletion action
+            if (confirm("Are you sure you want to delete this order?")) {
+                $.ajax({
+                    url: "{% url 'delete_order' %}",  // URL to delete the order
+                    type: "POST",
+                    data: {
+                        'order_id': orderId,  // Pass the order ID to be deleted
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // CSRF token
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Remove the order row from the DOM if the deletion was successful
+                            alert(response.message); // Optional: show a success message
+                            $('button[data-order-id="' + orderId + '"]').closest('tr').remove();
+                        } else {
+                            alert('Error deleting the order.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('There was an error deleting the order.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

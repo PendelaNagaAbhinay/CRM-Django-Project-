@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
+    <style>
+        /* Base Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin-top: 50px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+
+        /* Main Card Styling */
+        .main-card {
+            background-color: #34495e;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-card h5 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        .btn-outline-light {
+            background-color: transparent;
+            border-color: #ecf0f1;
+            color: #ecf0f1;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .btn-primary {
+            background-color: #e67e22;
+            border-color: #e67e22;
+            padding: 8px 15px;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #d35400;
+            border-color: #d35400;
+        }
+
+        .btn-info, .btn-danger {
+            padding: 5px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+
+        .btn-info {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #3498db;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            text-align: center;
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        table td {
+            background-color: #f7f7f7;
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #3498db;
+        }
+
+        footer {
+            background-color: #2a374a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Customer Orders</h1>
+
+        <!-- Customer Information Section -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card card-body main-card">
+                    <h5>Customer Information</h5>
+                    <hr class="bg-white">
+                  <a href="{% url 'my_customers' %}" class="btn btn-primary">My Customers</a>
+                    <a class="btn btn-outline-light btn-sm btn-block" href="#">Place New Order</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-body main-card">
+                    <h5>Contact Information</h5>
+                    <hr class="bg-white">
+                    <p class="text-white">Email: sample@example.com</p>
+                    <p class="text-white">Phone: 123-456-7890</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-body main-card">
+                    <h5>Total Orders</h5>
+                    <hr class="bg-white">
+                    <h1 class="text-white" style="text-align: center; padding: 10px;">5</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Form Section -->
+        <div class="mb-4">
+            <form method="get" class="form-inline justify-content-center">
+                <input type="text" class="form-control mb-2 mr-2" placeholder="Search..." name="search">
+                <button class="btn btn-primary mb-2" type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Orders Table Section -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sno</th>
+                        <th>Product</th>
+                        <th>Note</th>
+                        <th>Date Ordered</th>
+                        <th>Status</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Sample Product 1</td>
+                        <td>Urgent delivery</td>
+                        <td>2024-09-25</td>
+                        <td>Shipped</td>
+                        <td><a class="btn btn-info" href="#">Update</a></td>
+                        <td><a class="btn btn-danger" href="#">Remove</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Sample Product 2</td>
+                        <td>Gift wrap</td>
+                        <td>2024-09-20</td>
+                        <td>Processing</td>
+                        <td><a class="btn btn-info" href="#">Update</a></td>
+                        <td><a class="btn btn-danger" href="#">Remove</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button-container">
+            <a href="{% url 'dashboard' %}" class="back-button">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Customer Management Hub. All rights reserved.</p>
+        <p>Developed by <a href="https://www.example.com" target="_blank">Your Company</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

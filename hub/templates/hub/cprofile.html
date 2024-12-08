@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Basic reset and styling for body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            max-height: 500px;
+            margin: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .profile-header h2 {
+            margin: 0;
+            color: #444;
+        }
+
+        .profile-info {
+            margin-top: 10px;
+        }
+
+        .profile-info h3 {
+            color: #555;
+        }
+
+        .bio {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        footer {
+            background-color: #2e4053;
+            color: white;
+            padding: 20px; /* Increased padding for larger footer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: auto; /* Keeps footer at the bottom */
+            font-size: 16px; /* Larger text size */
+        }
+
+        footer p {
+            margin: 0;
+            color: white;
+        }
+
+        .back-button {
+            background-color: #2e4053;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px auto;
+            text-align: center;
+            display: block;
+            width: 50%;
+            max-width: 200px;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-header">
+        <img src="https://via.placeholder.com/100" alt="Profile Picture">
+        <div>
+            <h2>Riyaz</h2>
+            <p>Email: Riyaz2923@.com</p>
+            <p>Phone: (123) 456-7890</p>
+        </div>
+    </div>
+
+    <div class="profile-info">
+        <h3>About Me</h3>
+        <p class="bio"> I’m Riyaz.</p>
+    </div>
+</div>
+
+<button class="back-button" onclick="window.history.back();">Back</button>
+
+<footer>
+    &copy; 2024 Customer Sync. All rights reserved.
+</footer>
+
+</body>
+</html>

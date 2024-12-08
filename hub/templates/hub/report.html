@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Customer Sync</title>
+
+    <!-- Bootstrap CDN for layout and responsiveness -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures footer stays at the bottom */
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #2a374a;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        /* Main content area */
+        .content {
+            flex: 1; /* This makes the content area expand to fill space */
+            padding: 20px;
+        }
+
+        /* Back button styling */
+        .back-button-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background-color: #1d2735;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #2e4053;
+            color: white; /* Ensuring white text color */
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: white; /* Setting footer text color to white */
+        }
+
+        /* Report section styling */
+        .reports-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>CustomerSync Reports</h1>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        <div class="reports-section">
+            <h2>Reports Overview</h2>
+            <p>
+                Customer Sync provides a comprehensive suite of reporting tools designed to help businesses analyze
+                and optimize their customer management efforts. With our reports, users can track key metrics,
+                understand revenue trends, and gain insights into customer behavior. Key reports include:
+            </p>
+            <ul>
+                <li><strong>Revenue Reports:</strong> Analyze total revenue generated over specified periods.</li>
+                <li><strong>Deal Reports:</strong> Monitor the performance of closed deals against goals.</li>
+                <li><strong>Forecast Reports:</strong> Project future revenue based on current pipeline data.</li>
+                <li><strong>Leaderboard Reports:</strong> Assess team performance through a sales leaderboard.</li>
+            </ul>
+            <p>
+                Our platform ensures that users have access to all necessary data to make informed decisions and
+                drive growth.
+            </p>
+        </div>
+<br>
+        <br>
+        <br>
+         <br>
+        <br>
+
+
+        <!-- Back button -->
+        <div class="back-button-container">
+            <a href="{% url 'base' %}" class="back-button">Back</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Customer Sync. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

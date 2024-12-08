@@ -1,0 +1,43 @@
+<!-- dashboard.html -->
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-box-open"></i>
+                <h5>My Orders</h5>
+                <p>{{ total_orders }}</p>
+                <!-- View Orders Button -->
+                <a href="{% url 'my_orders' %}">
+                    <button class="btn btn-primary">View Orders</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-spinner"></i>
+                <h5>Orders Pending</h5>
+                <p>{{ pending_orders }}</p>
+                <!-- View Pending Orders Button -->
+                <a href="{% url 'my_orders' %}">
+                    <button class="btn btn-primary">View Pending</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-check-circle"></i>
+                <h5>Orders Delivered</h5>
+                <p>{{ delivered_orders }}</p>
+                <!-- View Delivered Orders Button -->
+                <a href="{% url 'my_orders' %}">
+                    <button class="btn btn-primary">View Delivered</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

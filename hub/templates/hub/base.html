@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CustomerHub</title>
+    <link rel="stylesheet" href="{% static 'erp/styles.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            background-<input type="image" src="images/bc1.jpg" alt="hello">
+            background-color: #F0F4EF; /* Existing background color */
+            background-size: cover;
+        }
+
+        /* Navbar styling */
+        #navbar {
+            background-color: #2e4053; /* Existing background color */
+            padding: 10px;
+            text-align: right; /* Ensures the anchor tags are aligned to the right */
+        }
+
+        #navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        #navbar a:hover {
+            background-color: darkorange;
+            background-color: #2e4053; /* Existing background color */
+            color: white;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #2e4053;
+            color: white;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            margin-right: 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: orange;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .card-img-top {
+            height: 170px;
+            object-fit: cover;
+        }
+
+        .image-text-container .image img {
+            width: 450px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .contact-section {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+        }
+
+        .contact-box {
+            background-color: #2e4053;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 10px auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .contact-box p {
+            margin-bottom: 5px;
+        }
+
+        .contact-box a {
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Updated styling for image and text side by side */
+        .image-after-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Optional background for better text visibility */
+        }
+
+        .image-after-nav .text-over-image {
+            color: white;
+            font-size: 100px;
+            font-weight: bold;
+            padding: 50px;
+            text-align: left;
+        }
+
+        .image-after-nav img {
+            width: 50%;
+            height: auto;
+        }
+
+        /* Styling for the popup message */
+        .popup-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            background-color: #2e4053;
+            color: white;
+            border-radius: 10px;
+            border: 2px solid #f39c12;
+            z-index: 1000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .popup-message .icon {
+            font-size: 30px;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav id="navbar">import os
+print("BASE_DIR:", BASE_DIR)
+print("TEMPLATES['DIRS']:", TEMPLATES[0]['DIRS'])
+
+    <b>
+        <a href="#" id="home-page-btn">Home Page</a>
+
+
+       <a href="managerLogin.html"><Manager>   </Manager>Manager Login</a>
+<!--       <a href="managerLogin.html">Manager Login</a>-->
+        <a href="CLogin.html">Customer Login</a>
+        <a href="registration.html">Register</a>
+    </b>
+</nav>
+
+<br>
+
+<!-- Image added after anchor tags with text on the left and image on the right -->
+<div class="image-after-nav">
+    <div class="text-over-image">
+        CustomerSync
+    </div>
+    <img src="{% static 'images/pic1.jpg' %}" alt="CustomerHub Promo">
+</div>
+
+<br><br>
+
+<!-- Contact Section -->
+<div class="contact-section">
+    <div class="contact-box">
+        <p>Have questions? Give us a call and we’ll be contacting you.</p>
+        <a href="tel:1114344111">111 4344 111</a>
+    </div>
+</div>
+
+<!-- Related Resources Section -->
+<h2 class="text-center">Our Related Sources</h2>
+
+<!-- Card Section -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+            <div class="card h-100 d-flex flex-column">
+                <img src="{% static 'images/image1.webp' %}" class="card-img-top" alt="Content Hub Overview">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">CustomerHub Overview</h5>
+                    <p class="card-text">Learn about our premium content management software, and how you can use these powerful tools to grow your business faster.</p>
+                    <a href="overview.html" class="btn btn-primary mt-auto">CustomerHub Overview</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-4">
+            <div class="card h-100 d-flex flex-column">
+                <img src="{% static 'images/2img.jpg' %}" class="card-img-top" alt="CMS Training for Marketers">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">CMS Training for Marketers</h5>
+                    <p class="card-text">Get certified in CustomerHub’s CMS, and learn the ins and outs of building a website on CustomerHub.</p>
+                    <a href="certificate.html" class="btn btn-primary mt-auto">Get Certified</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-4">
+            <div class="card h-100 d-flex flex-column">
+                <img src="{% static 'images/3img.jpg' %}" class="card-img-top" alt="Developer Quick Start Guide">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Developer Quick Start Guide</h5>
+                    <p class="card-text">Have a developer? Share this guide with them to get them up and running on the CMS in no time at all.</p>
+                    <a href="DeveloperGuide.html" class="btn btn-primary mt-auto">Developer Guide</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image and Text Side by Side Section -->
+
+<!-- Footer -->
+<footer>
+  <a href="{% url 'about' %}">About us</a>
+    <a href="{% url 'contact' %}">Contact Us</a>
+    <a href="{% url 'report' %}">Report</a>
+    <a href="{% url 'terms' %}">Terms & Conditions</a>
+</footer>
+
+<!-- Add this JavaScript block for the pop-up message -->
+<script>
+    // Function to show the modern-styled pop-up message
+    function showPopup() {
+        // Create the pop-up div
+        const popup = document.createElement('div');
+
+        // Add content with an icon and message
+        popup.innerHTML = <span class="icon">&#x1F6C8;</span> You are already on the Home Page.;
+
+        // Apply the class for styling
+        popup.className = 'popup-message';
+
+        // Add the pop-up to the body
+        document.body.appendChild(popup);
+
+        // Automatically remove the pop-up after 3 seconds
+        setTimeout(function () {
+            popup.style.opacity = '0';  // Start fade-out
+
+            setTimeout(() => {
+                popup.remove();  // Remove the popup after fade-out
+            }, 500);  // Delay to match the fade-out duration
+        }, 1000);
+    }
+
+    // Add event listener to "Home Page" button
+    document.getElementById('home-page-btn').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default link behavior
+        showPopup(); // Show the pop-up message
+    });
+</script>
+
+<script type="text/javascript">
+  (function(d, m){
+    var kommunicateSettings =
+        {"appId":"f542d437458627ffe29fca1643aa00b2","popupWidget":true,"automaticChatOpenOnNavigation":true};
+    var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+    s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+    var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+    window.kommunicate = m; m._globals = kommunicateSettings;
+  })(document, window.kommunicate || {});
+</script>
+
+
+</body>
+</html>

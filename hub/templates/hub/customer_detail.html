@@ -1,0 +1,49 @@
+<!-- customer_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar" style="background-color: #2e4053; padding: 15px; text-align: right;">
+        <a href="{% url 'report' %}" style="color: white;">Report</a>
+        <a href="{% url 'dashboard' %}" style="color: white;">Leads</a>
+        <a href="{% url 'my_customers' %}" style="color: white;">Customers</a>
+        <a href="{% url 'profile' %}" class="profile-icon" data-title="Profile" style="color: white;">
+            <i class="fas fa-user"></i>
+        </a>
+        <a href="{% url 'home' %}" class="home-icon" data-title="Home" style="color: white;">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="{% url 'logout' %}" class="logout-icon" data-title="Logout" style="color: white;">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </nav>
+
+    <!-- Customer Details Section -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Customer Details</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Customer Information:</h4>
+                <p><strong>First Name:</strong> {{ customer.first_name }}</p>
+                <p><strong>Email:</strong> {{ customer.email }}</p>
+            </div>
+        </div>
+
+        <a href="{% url 'my_customers' %}" class="btn btn-primary mt-3">Back to Customers List</a>
+    </div>
+
+    <!-- Bootstrap JS & jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

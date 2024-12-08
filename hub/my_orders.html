@@ -1,0 +1,32 @@
+<!-- my_orders.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Your Orders</h2>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>My Orders</h4>
+                <ul class="list-group">
+                    {% for order in orders %}
+                        <li class="list-group-item">
+                            <strong>{{ order.order_id }}</strong> - {{ order.status }} <br>
+                            <small>Created at: {{ order.created_at }}</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No orders yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <h4>Create a New Order</h4>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Create Order</button>
+        </form>
+    </div>
+{% endblock %}

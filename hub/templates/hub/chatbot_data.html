@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        /* Chatbot container */
+        #chatbot-container {
+            width: 350px;
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Chat area */
+        #chatbot-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background-color: #d1e7dd;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #e7e9eb;
+            align-self: flex-start;
+        }
+
+        /* Input area */
+        #chatbot-input {
+            display: flex;
+            align-items: center;
+        }
+
+        #chatbot-text {
+            flex-grow: 1;
+            height: 35px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        #chatbot-send {
+            margin-left: 10px;
+            height: 35px;
+            padding: 0 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #chatbot-send:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbot-container">
+        <!-- Chat messages area -->
+        <div id="chatbot-messages">
+            <div class="message bot-message">Hi! How can I assist you today?</div>
+        </div>
+
+        <!-- Input area -->
+        <div id="chatbot-input">
+            <input type="text" id="chatbot-text" placeholder="Type your message...">
+            <button id="chatbot-send">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Reference DOM elements
+        const messagesContainer = document.getElementById('chatbot-messages');
+        const inputField = document.getElementById('chatbot-text');
+        const sendButton = document.getElementById('chatbot-send');
+
+        // Function to add a message to the chat
+        function addMessage(text, isUser = true) {
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.classList.add(isUser ? 'user-message' : 'bot-message');
+            message.textContent = text;
+            messagesContainer.appendChild(message);
+
+            // Scroll to the latest message
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Send message logic
+        sendButton.addEventListener('click', () => {
+            const userInput = inputField.value.trim();
+            if (userInput) {
+                // Add user message to the chat
+                addMessage(userInput);
+
+                // Clear input field
+                inputField.value = '';
+
+                // Simulate bot response
+                setTimeout(() => {
+                    fetch('/chatbot-data/', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken(), // Add CSRF token if needed
+    },
+    body: JSON.stringify({ message: userInput }), // Send user input
+})
+    .then((response) => response.json())
+    .then((data) => {
+        addMessage(data.response, false); // Display bot response
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        addMessage('Sorry, something went wrong!', false);
+    });
+
+                    addMessage(`You said: ${userInput}`, false);
+                }, 500);
+            }
+        });
+
+        // Enable Enter key for sending messages
+        inputField.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

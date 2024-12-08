@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CustomerSync</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Main Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ebf5fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styling */
+        #navbar {
+            background-color: #2e4053;
+            padding: 15px;
+            text-align: right;
+        }
+
+        #navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 20px 20px;
+            margin: 0 5px;
+            border-radius: 50%;
+            position: relative;
+            transition: background-color 0.3s, transform 0.3s ease-in-out;
+        }
+
+        #navbar a:hover {
+            background-color: #f39c12;
+            transform: scale(1.1);
+        }
+
+        /* Dashboard container */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Profile Bar */
+        #profile-bar {
+            position: fixed;
+            top: 0;
+            right: -350px;  /* Hidden initially, off-screen */
+            width: 350px;
+            height: 100vh;
+            background-color: #2e4053;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: right 0.4s ease-in-out;
+            padding: 30px;
+            color: white;
+            overflow-y: auto;
+            border-radius: 10px 0 0 10px;
+        }
+
+        /* Profile Bar Header */
+        #profile-bar h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #f39c12;
+            text-align: center;
+        }
+
+        /* Profile Bar Welcome Message */
+        #profile-bar .lead {
+            font-size: 1.3rem;
+            color: #ecf0f1;
+            text-align: center;
+        }
+
+        /* Profile Information */
+        #profile-bar .profile-info {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        #profile-bar .profile-info p {
+            margin: 10px 0;
+        }
+
+        /* Profile Image */
+        #profile-bar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Profile Bar Button Styling */
+        #profile-bar button {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        #profile-bar button:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        /* Profile Icon Styling */
+        .profile-icon {
+            cursor: pointer;
+            font-size: 30px;
+            padding: 15px;
+            background-color: #2e4053;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s ease-in-out;
+        }
+
+        .profile-icon:hover {
+            background-color: #f39c12;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav id="navbar">
+    <b>
+        {% csrf_token %}
+        <a href="{% url 'report' %}">Report</a>
+        <a href="{% url 'feedback' %}" class="feedback-icon" data-title="Feedback">
+            <i class="fas fa-comment-dots"></i>
+        </a>
+        <a href="#" class="profile-icon" onclick="toggleProfileBar()" data-title="Profile">
+            <i class="fas fa-user"></i>
+        </a>
+        <a href="{% url 'base' %}" class="home-icon" data-title="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="{% url 'base' %}" class="logout-icon" data-title="Logout">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </b>
+</nav>
+<!-- Dashboard Container -->
+<div class="dashboard-container">
+    <h1>Welcome {{ user.username }}</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-box-open"></i>
+                    <h5>My Orders</h5>
+                    <!-- Display the order count for total orders -->
+                    <p id="total_orders">{{ total_orders }}</p>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrderModal">
+                        Add Order
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-spinner"></i>
+                    <h5>Orders Pending</h5>
+                    <!-- Display the pending order count -->
+                    <p id="pending_orders">{{ pending_orders }}</p>
+
+                    <button id="viewPendingOrdersBtn" type="button" class="btn btn-primary">
+                        View Pending Orders
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <i class="fas fa-check-circle"></i>
+                    <h5>Orders Delivered</h5>
+                    <!-- Display the delivered order count -->
+                    <p id="delivered_orders">{{ delivered_orders }}</p>
+
+                    <button type="button" class="btn btn-primary" id="viewDeliveredOrdersBtn">
+                        View Delivered Orders
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Bar (Initially Hidden) -->
+<div id="profile-bar">
+    <h3>Welcome to Your Profile, {{ user.username }}!</h3>
+    <p class="lead" style="font-size: 1.3rem;">We’re glad to have you back. Here's your profile information:</p>
+    <div class="text-center">
+        <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="border: 2px solid #fff;">
+    </div>
+    <div class="profile-info">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+    </div>
+    <p style="margin-top: 20px; font-size: 1.1rem; color: #7f8c8d;">We're excited to have you with us. Keep track of your orders, feedback, and profile settings here!</p>
+    <a href="{% url 'Cdashboard' %}">
+        <button class="btn btn-light btn-block" style="border-radius: 5px; border: 1px solid #ccc;">Back to Dashboard</button>
+    </a>
+</div>
+<!-- Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="orderDetails">
+                <!-- Product details will be populated here dynamically -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Order Modal -->
+<div class="modal fade" id="addOrderModal" tabindex="-1" role="dialog" aria-labelledby="addOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOrderModalLabel">Add New Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Order Form -->
+                <form id="addOrderForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="order_name">Order Name</label>
+                        <input type="text" class="form-control" id="order_name" name="order_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status" name="status" required>
+                            <option value="Pending" selected>Pending</option>
+                            <!-- You can dynamically add other statuses here if needed -->
+                            <option value="Delivered">Delivered</option>
+                            <option value="Shipped">Shipped</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $('#addOrderModal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+
+    // Assuming you have a Django context variable `order_status` passed from the view
+    // Default status is "Pending", but if there is a status assigned, show that.
+    var currentStatus = "{{ order_status|default:'Pending' }}";  // Example: use the order status passed from the backend
+
+    // Set the selected status in the dropdown
+    modal.find('#status').val(currentStatus);  // Set the default status in the modal form
+});
+</script>
+<!-- View Pending Orders Modal -->
+<div class="modal fade" id="pendingOrdersModal" tabindex="-1" role="dialog" aria-labelledby="pendingOrdersModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pendingOrdersModalLabel">Pending Orders</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="pendingOrdersContent">
+                <!-- Pending Orders will be loaded here via AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Delivered Orders Modal -->
+<div class="modal fade" id="deliveredOrdersModal" tabindex="-1" role="dialog" aria-labelledby="deliveredOrdersModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deliveredOrdersModalLabel">Delivered Orders</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="deliveredOrdersContent">
+                <!-- Delivered Orders will be loaded here via AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>  <!-- Bootstrap JS -->
+<script>
+    // Function to fetch pending orders
+    function fetchPendingOrders() {
+        $.ajax({
+            url: "{% url 'view_pending_orders' %}",  // URL to your Django view
+            type: "GET",
+            success: function(response) {
+                // Clear any previous orders in the modal
+                $('#pendingOrdersContent').html('');
+
+                // If there are no orders, show a message
+                if (response.orders.length === 0) {
+                    $('#pendingOrdersContent').html('<p>No pending orders found.</p>');
+                } else {
+                    // Loop through the orders and append them to the modal body
+                    response.orders.forEach(function(order) {
+                        var orderHtml = `
+                            <div class="order-item">
+                                <h5>Order Name: ${order.name}</h5>
+                                <p><strong>Status:</strong> Pending</p>
+                                <p><strong>Description:</strong> ${order.description}</p>
+                                <p><strong>Created on:</strong> ${order.created_at}</p>
+                                <hr>
+                            </div>
+                        `;
+                        $('#pendingOrdersContent').append(orderHtml);
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Error fetching pending orders: ' + xhr.responseText);
+            }
+        });
+    }
+
+    // When the user clicks on "View Pending Orders"
+    $('#viewPendingOrdersBtn').click(function() {
+        fetchPendingOrders();  // Fetch and display the orders
+        $('#pendingOrdersModal').modal('show');  // Show the modal
+    });
+</script>
+
+<script>
+    // Function to fetch product details based on status
+function viewProductDetails(status) {
+    $.ajax({
+        url: status === 'Pending' ? "{% url 'view_pending_orders' %}" : "{% url 'view_delivered_orders' %}",  // Dynamic URL based on status
+        type: "GET",
+        data: {
+            'status': status,
+            'user_id': {{ user.id }}  // Send the user ID to filter orders
+        },
+        success: function(response) {
+            // Clear the previous content in the modal
+            $('#orderDetails').html('');
+
+            if (response.products.length === 0) {
+                $('#orderDetails').append('<p>No products found for this status.</p>');
+            } else {
+                // Loop through the products and display them
+                response.products.forEach(function(product) {
+                    var productHtml = `
+                        <div class="product-item">
+                            <h5>Product Name: ${product.name}</h5>
+                            <p><strong>Status:</strong> ${product.status}</p>
+                            <p><strong>Description:</strong> ${product.description}</p>
+                            <p><strong>Created on:</strong> ${product.created_at}</p>
+                            <hr>
+                        </div>
+                    `;
+                    $('#orderDetails').append(productHtml);
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Error fetching product details: " + xhr.responseText);
+        }
+    });
+}
+
+// When the user clicks on View Pending Products
+$('#viewPendingOrdersBtn').click(function() {
+    viewProductDetails('Pending');
+    $('#orderDetailsModal').modal('show');
+});
+
+// When the user clicks on View Delivered Products
+$('#viewDeliveredOrdersBtn').click(function() {
+    viewProductDetails('Delivered');
+    $('#orderDetailsModal').modal('show');
+});
+
+    // Function to toggle the profile bar
+    function toggleProfileBar() {
+        const profileBar = document.getElementById("profile-bar");
+        const rightPosition = profileBar.style.right === "0px" ? "-350px" : "0px";
+        profileBar.style.right = rightPosition;
+    }
+
+    // Handle the form submission via AJAX
+    $("#addOrderForm").submit(function(event) {
+        event.preventDefault();  // Prevent the default form submission (i.e., don't reload the page)
+
+        var formData = $(this).serialize();  // Serialize the form data
+
+        $.ajax({
+            url: "{% url 'add_order' %}",  // This should point to your Django 'add_order' URL
+            type: "POST",
+            data: formData,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");  // Ensure it's an AJAX request
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));  // Add CSRF token header
+            },
+            success: function(response) {
+                // Update the order counts dynamically
+                $("#total_orders").text(response.total_orders);
+                $("#pending_orders").text(response.pending_orders);
+                $("#delivered_orders").text(response.delivered_orders);
+
+                // Close the modal
+                $("#addOrderModal").modal('hide');
+
+                // Optionally clear the form
+                $("#addOrderForm")[0].reset();
+            },
+            error: function(xhr, status, error) {
+                alert("There was an error submitting the order: " + xhr.responseText);
+            }
+        });
+    });
+
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Handle the "View Pending Orders" button click
+    $("#viewPendingOrdersBtn").click(function() {
+        $.ajax({
+            url: "{% url 'view_pending_orders' %}",  // URL to fetch pending orders
+            type: "GET",
+            success: function(response) {
+                // Populate the modal with the pending orders
+                $("#pendingOrdersContent").html(response);
+                $("#pendingOrdersModal").modal("show");
+            },
+            error: function(xhr, status, error) {
+                alert("Error loading pending orders: " + xhr.responseText);
+            }
+        });
+    });
+
+    // Handle the "View Delivered Orders" button click
+    $("#viewDeliveredOrdersBtn").click(function() {
+        $.ajax({
+            url: "{% url 'view_delivered_orders' %}",  // URL to fetch delivered orders
+            type: "GET",
+            success: function(response) {
+                // Populate the modal with the delivered orders
+                $("#deliveredOrdersContent").html(response);
+                $("#deliveredOrdersModal").modal("show");
+            },
+            error: function(xhr, status, error) {
+                alert("Error loading delivered orders: " + xhr.responseText);
+            }
+        });
+    });
+    // Function to fetch order details based on status
+function viewOrderDetails(status) {
+    $.ajax({
+        url: status === 'Pending' ? "{% url 'view_pending_orders' %}" : "{% url 'view_delivered_orders' %}",  // Dynamic URL based on status
+        type: "GET",
+        data: {
+            'status': status,
+            'user_id': {{ user.id }}  // Send the user ID to filter orders
+        },
+        success: function(response) {
+            // Clear the previous content
+            $('#orderDetails').html('');
+
+            if (response.orders.length === 0) {
+                $('#orderDetails').append('<p>No orders found for this status.</p>');
+            } else {
+                // Loop through the orders and display them
+                response.orders.forEach(function(order) {
+                    var orderHtml = `
+                        <div class="order-item">
+                            <h5>Order Name: ${order.name}</h5>
+                            <p><strong>Status:</strong> ${order.status}</p>
+                            <p><strong>Description:</strong> ${order.description}</p>
+                            <p><strong>Created on:</strong> ${order.created_at}</p>
+                            <hr>
+                        </div>
+                    `;
+                    $('#orderDetails').append(orderHtml);
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Error fetching order details: " + xhr.responseText);
+        }
+    });
+}
+
+// When the user clicks on View Details for "Pending" Orders
+$('#viewPendingOrdersBtn').click(function() {
+    viewOrderDetails('Pending');
+    $('#orderDetailsModal').modal('show');
+});
+
+// When the user clicks on View Details for "Delivered" Orders
+$('#viewDeliveredOrdersBtn').click(function() {
+    viewOrderDetails('Delivered');
+    $('#orderDetailsModal').modal('show');
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ebf5fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2e4053;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Enhanced Login Button with icon and hover effect */
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #2e4053, #f39c12); /* Gradient background */
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+            text-transform: uppercase; /* Capitalize the text for style */
+            position: relative; /* For positioning the icon */
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #f39c12, #2e4053); /* Reverse the gradient on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow for hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        input[type="submit"]:active {
+            background: #f39c12; /* Keep the color when clicked */
+            transform: translateY(2px); /* Slight depress effect on click */
+        }
+
+        input[type="submit"]:focus {
+            outline: none; /* Remove default focus outline */
+        }
+
+        input[type="submit"]::before {
+            content: "\f007"; /* FontAwesome user icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Back Arrow Button */
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #2e4053;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-arrow:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Arrow Button -->
+    <a href="{% url 'base' %}" class="back-arrow">&#8592; Back</a>
+
+    <div class="login-container">
+        <h2>Manager Login</h2>
+
+        <!-- Display Error Messages -->
+        {% if messages %}
+            <div class="error-message">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Login Form -->
+       <form method="POST" action="{% url 'manager_login' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+    <input type="submit" value="Login">
+</form>
+
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cdashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .profile-icon {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+            background-color: #f39c12;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+        }
+
+        .profile-bar {
+            display: none;
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 300px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .profile-bar h3 {
+            margin-top: 0;
+        }
+
+        .profile-bar input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .profile-bar button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2e4053;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile-bar button:hover {
+            background-color: #f39c12;
+        }
+
+        .message {
+            margin-top: 20px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profile Icon -->
+    <div class="profile-icon" id="profile-icon">
+        <i class="fas fa-user"></i> <!-- You can use an icon here -->
+    </div>
+
+    <!-- Profile Bar -->
+    <div class="profile-bar" id="profile-bar">
+        <h3>User Profile</h3>
+        <form method="POST" action="{% url 'cdashboard' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Optional: Include FontAwesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <script>
+        // Toggle the profile bar visibility
+        document.getElementById('profile-icon').addEventListener('click', function() {
+            const profileBar = document.getElementById('profile-bar');
+            profileBar.style.display = profileBar.style.display === 'none' || profileBar.style.display === '' ? 'block' : 'none';
+        });
+    </script>
+
+</body>
+</html>

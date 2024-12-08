@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Customer Sync</title>
+
+    <!-- Bootstrap CDN for layout and responsiveness -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #2a374a;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        /* Main content styling */
+        .terms-container {
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: -30px auto 20px;
+            max-width: 800px;
+        }
+
+        h3 {
+            color: #2a374a;
+            font-size: 1.8rem;
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Back button styling */
+        .back-button-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background-color: #1d2735;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #2e4053;
+            color: white; /* Ensuring white text color */
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: white; /* Setting footer text color to white */
+        }
+
+        .pdf-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .pdf-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Legal Issues</h1>
+        <h2>For All Your Inquiries</h2>
+    </div>
+
+    <br><br><br>
+
+    <!-- Main content -->
+    <div class="container terms-container">
+        <h3>CustomerSync Customer Terms of Service</h3>
+        <p>Last Modified: September 30, 2024</p>
+
+        <h3 class="mt-4">For Customers</h3>
+        <div class="accordion-body">
+            <p>These Terms govern your access to and use of CustomerSync services, including Customer Hub’s content and software.</p>
+            <p>You must comply with any applicable laws, regulations, and policies when using our services.</p>
+            <p>Any violations may lead to the termination of your access.</p>
+            <p><strong>Usage Rights:</strong> Customers are granted a non-exclusive, non-transferable license to access and use the services.</p>
+            <p><strong>Account Responsibility:</strong> You are responsible for maintaining the confidentiality of your account and password, as well as for all activities that occur under your account.</p>
+            <p><strong>Termination:</strong> We reserve the right to terminate your account and access to the services at our discretion, especially if you violate these Terms.</p>
+        </div>
+
+        <h3 class="mt-4">For Partners</h3>
+        <div class="accordion-body">
+            <p>Partner programs are designed to help you grow your business. Partners must meet specific qualifications to join.</p>
+            <p>Partners agree to promote Customer Sync in compliance with our branding and marketing guidelines.</p>
+            <p>Failure to comply may result in disqualification from the partner program.</p>
+            <p><strong>Responsibilities:</strong> Partners are required to maintain high standards of service and support to their customers.</p>
+            <p><strong>Branding Compliance:</strong> All promotional materials must adhere to the Customer Sync brand guidelines.</p>
+            <p><strong>Termination of Partnership:</strong> We reserve the right to terminate partnerships that do not align with our values or standards.</p>
+        </div>
+
+        <h3 class="mt-4">For Developers</h3>
+        <div class="accordion-body">
+            <p>Developers are granted access to our APIs under certain conditions, including proper authentication and adherence to rate limits.</p>
+            <p>Any misuse of the API may lead to suspension or termination of access, along with legal action if necessary.</p>
+            <p><strong>API Usage:</strong> Developers must follow the usage limits set by CustomerSync to ensure fair access for all users.</p>
+            <p><strong>Security Compliance:</strong> Developers must implement proper security measures to protect user data and comply with all relevant laws and regulations.</p>
+            <p><strong>Intellectual Property:</strong> All content accessed via the API remains the property of Customer Sync, and unauthorized use is prohibited.</p>
+        </div>
+
+        <h3>Additional Terms</h3>
+        <ul>
+            <li>You agree not to copy, modify, or distribute any part of our services without explicit permission.</li>
+            <li>We reserve the right to suspend or terminate your access if we determine that you have violated these Terms.</li>
+            <li>These Terms are governed by the laws of your jurisdiction, without regard to its conflict of law principles.</li>
+            <li>Any disputes arising from these Terms will be resolved in the courts of your jurisdiction.</li>
+        </ul>
+    </div>
+
+    <!-- Back button outside the footer -->
+    <div class="back-button-container">
+        <a href="{% url 'base' %}" class="back-button">Back</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Customer Sync. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

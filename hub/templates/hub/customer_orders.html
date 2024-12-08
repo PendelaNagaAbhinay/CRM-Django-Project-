@@ -1,0 +1,102 @@
+<!-- hub/customer_orders.html -->
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom Styles */
+        .container {
+            margin-top: 30px;
+        }
+
+        .btn-custom {
+            background-color: #2e4053;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #f39c12;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .table thead {
+            background-color: #2e4053;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #7d8c97;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Customer Orders</h2>
+
+        <!-- Search Box -->
+        <div class="search-box">
+            <form method="GET" action="{% url 'customer_orders' %}">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="q" placeholder="Search by Order Name" value="{{ request.GET.q }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-custom" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Orders Table -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Order Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if orders %}
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <!-- Make sure this matches the actual field in your model -->
+                            <td>{{ order.order_name }}</td>  <!-- Changed 'name' to 'order_name' -->
+                            <td>{{ order.status }}</td>
+                            <td>
+                                <a href="{% url 'edit_order' order.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="no-data">
+                        <td colspan="4">No orders found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Back Button -->
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

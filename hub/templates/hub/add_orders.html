@@ -1,0 +1,36 @@
+<!-- templates/add_order.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Order for {{ customer.name }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">Add Order for {{ customer.name }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="total_amount">Total Amount</label>
+            {{ form.total_amount }}
+        </div>
+
+        <div class="form-group">
+            <label for="status">Order Status</label>
+            {{ form.status }}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Add Order</button>
+    </form>
+
+    <br>
+    <a href="{% url 'customer_details' customer.id %}" class="btn btn-secondary btn-block">Back to Customer Details</a>
+</div>
+
+</body>
+</html>

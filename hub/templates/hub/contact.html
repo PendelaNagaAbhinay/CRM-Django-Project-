@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get in Touch Section</title>
+
+    <!-- Bootstrap CDN for layout and responsiveness -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Header section */
+        .contact-section {
+            background-color: #1c3e56;
+            padding: 50px 0;
+            color: white;
+        }
+
+        .contact-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        /* Contact boxes */
+        .contact-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-box i {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contact-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #1c3e56;
+        }
+
+        .contact-box p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .contact-box a {
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-box .btn {
+            background-color: #ff6600;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .contact-box .btn:hover {
+            background-color: #e65c00;
+        }
+
+        /* Contact image */
+        .contact-image {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Align the text and image in the header */
+        .contact-header .contact-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .contact-header img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .contact-header img {
+                height: 300px;
+                width: auto;
+            }
+        }
+
+        footer {
+            background-color: #2e4053;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Back button styling */
+        .back-button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: darkorange;
+        }
+
+        /* Centering the back button */
+        .back-button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container contact-header">
+            <div class="row">
+                <!-- Text Column -->
+                <div class="col-md-6 contact-text">
+                    <h1>Get in touch</h1>
+                    <p>Want to get in touch? Here's how you can reach us.</p>
+                </div>
+                <!-- Image Column -->
+                <div class="col-md-6">
+                    <img src="{% static 'images/contact.webp' %}" alt="Contact Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info and Image -->
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <!-- Contact Info: Sales & Support -->
+            <div class="col-md-6">
+                <div class="contact-box">
+                    <i class="fas fa-phone-alt"></i>
+                    <h4>Talk to Sales</h4>
+                    <p>Interested in our CustomerSync? Just pick up the phone to chat with a member of our sales team.</p>
+                    <a href="tel:00088118899988">000811 889 9988</a><br>
+                    Email :     <a href="abhinaypendada1712@gmail.com">abhinaypendada1712@gmail.com</a><br>
+                                    <a href="shyamalakorukonda2923@gmail.com">shyamalakorukonda2923@gmail.com</a><br>
+
+                    <a href="#">View all global numbers</a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="contact-box">
+                    <i class="fas fa-comments"></i>
+                    <h4>Contact Customer Support</h4>
+                    <p>Need any inquiries? CustomerSync support is here. We’re here for you. Let us know.</p>
+                    <a href="{% url 'contact' %}" class="btn">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back button centered in the page -->
+    <div class="back-button-container">
+        <a href="{% url 'base' %}" class="back-button">Back</a>
+    </div>
+    <br>
+    <br>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Customer Sync. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

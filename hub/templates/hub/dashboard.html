@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CustomerHub</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ebf5fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styling */
+        #navbar {
+            background-color: #2e4053;
+            padding: 15px;
+            text-align: right;
+            position: relative;
+        }
+
+        #navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        #navbar a:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        /* Tooltip-style menu indicator */
+        #navbar a::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f39c12;
+            color: white;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+            border-radius: 5px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #navbar a:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Adjust size and height for icons */
+        .home-icon i, .profile-icon i, .logout-icon i {
+            font-size: 1.5rem;
+            line-height: 1;
+            margin: 0;
+            vertical-align: middle;
+        }
+
+        /* Dashboard container */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Card styles */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            background-color: #ffffff;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h5 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2e4053;
+        }
+
+        .card-body p {
+            font-size: 1.1rem;
+            color: #7d8c97;
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+
+        /* Custom Button */
+        .btn-primary {
+            background-color: #2e4053;
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2e4053;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Profile Sidebar Styling */
+        .profile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #2e4053;
+            color: white;
+            padding: 20px;
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+
+        .profile-sidebar-content h4 {
+            margin-bottom: 10px;
+        }
+
+        .profile-sidebar-content p {
+            font-size: 0.9rem;
+        }
+
+        .profile-sidebar-content img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .profile-sidebar .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* When the profile sidebar is shown */
+        .profile-sidebar.show {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <b>
+            {% csrf_token %}
+            <a href="{% url 'report' %}">Report</a>
+            <a href="{% url 'dashboard' %}">Leads</a>
+            <a href="{% url 'dashboard' %}">Customers</a>
+            <a href="javascript:void(0)" class="profile-icon" id="profileIcon" data-title="Profile">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="{% url 'base' %}" class="home-icon" data-title="Home">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="{% url 'base' %}" class="logout-icon" data-title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </b>
+    </nav>
+
+    <!-- Profile Sidebar -->
+    <div id="profileSidebar" class="profile-sidebar">
+        <div class="profile-sidebar-content">
+            <h4>{{ user.username }}</h4>
+            <p>{{ user.email }}</p>
+            {% if user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="profile-image">
+            {% else %}
+                <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture" class="profile-image">
+            {% endif %}
+            <button class="btn btn-danger" onclick="window.location.href='{% url 'base' %}'">Logout</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <h1>Welcome to Your Dashboard Admin👋</h1>
+
+        <!-- Cards Row (Ensure they are side by side) -->
+        <div class="row">
+            <!-- Customers Card -->
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-users"></i>
+                        <h5>My Customers</h5>
+                        <p>{{ total_customers_count }}</p>
+                        <a href="{% url 'my_customers' %}" class="btn btn-primary">View Customers</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Pending Card -->
+            <div class="col-md-4">
+                <div class="card text-center custom-card">
+                    <div class="card-body">
+                        <i class="fas fa-spinner custom-icon"></i>
+                        <h5 class="card-title">Customer Orders</h5>
+                        <p class="card-text">{{ total_orders_count }}</p>
+                        <a href="{% url 'customer_orders' %}" class="btn btn-primary custom-btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+<!--            &lt;!&ndash; Orders Delivered Card (Optional) &ndash;&gt;-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="card text-center">-->
+<!--                    <div class="card-body">-->
+<!--                        <i class="fas fa-check-circle"></i>-->
+<!--                        <h5>Orders Delivered</h5>-->
+<!--                        <p>120</p>-->
+<!--                        <a href="#" class="btn btn-primary">View Details</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 CustomerHub</p>
+    </footer>
+
+    <!-- Bootstrap JS & jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Toggle Profile Sidebar -->
+    <script>
+        document.getElementById('profileIcon').addEventListener('click', function() {
+            document.getElementById('profileSidebar').classList.toggle('show');
+        });
+
+        window.addEventListener('click', function(event) {
+            var sidebar = document.getElementById('profileSidebar');
+            var profileIcon = document.getElementById('profileIcon');
+            if (!sidebar.contains(event.target) && !profileIcon.contains(event.target)) {
+                sidebar.classList.remove('show');
+            }
+        });
+    </script>
+    <script type="text/javascript">
+    (function(d, m){
+        var kommunicateSettings =
+            {"appId":"f542d437458627ffe29fca1643aa00b2","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+     })(document, window.kommunicate || {});
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certification Cards</title>
+    <style>
+        /* Reset some basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f4f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh; /* Ensures the page takes full height */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #2e4053;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar ul li {
+            display: inline;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; /* Allows the content to take up remaining space */
+            width: 100%;
+            padding-top: 80px; /* Space for the fixed navbar */
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: flex;
+            justify-content: center; /* Centers the cards horizontally */
+            align-items: center; /* Centers the cards vertically */
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            padding: 70px;
+            position: relative;
+        }
+
+        .category {
+            color: #5dbaec;
+            font-weight: bold;
+        }
+
+        .category.marketing {
+            color: #f39c12;
+        }
+
+        .category.sales {
+            color: #2ecc71;
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #2e4053;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .description {
+            font-size: 1rem;
+            margin: 15px 0;
+            color: #7b7b7b;
+        }
+
+        .cta-button {
+            background-color: #2e4053;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #f39c12;
+        }
+
+        /* Back button styling */
+        .back-button-container {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: orange;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background-color: #1d2735;
+            text-decoration: none;
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #2e4053;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%; /* Adjust as needed */
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Certification Hub</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Cards Container -->
+        <div class="cards-container">
+            <!-- First Card -->
+            <div class="card">
+                <h3 class="category sales">SALES</h3>
+                <h3>Inbound Sales</h3>
+                <span class="badge-popular">POPULAR</span>
+                <p class="description">Learn how to identify new prospects, connect with them, and explore their needs... <a href="#">Read more</a></p>
+                <a href="#" class="cta-button">Start certification</a>
+            </div>
+
+            <!-- Second Card -->
+            <div class="card">
+                <h3 class="category marketing">MARKETING</h3>
+                <h3>Content Marketing</h3>
+                <span class="badge-popular">POPULAR</span>
+                <p class="description">This certification course will give you an overview of how to become an eff... <a href="#">Read more</a></p>
+                <a href="#" class="cta-button">Start certification</a>
+            </div>
+            <div class="card">
+                <h3 class="category marketing">MARKETING SALES</h3>
+                <h3>Inbound</h3>
+                <span class="badge-popular">POPULAR</span>
+                <p class="description">This certification course will give you an overview of how to become an eff... <a href="#">Read more</a></p>
+                <a href="#" class="cta-button">Start certification</a>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+         <div class="back-button-container">
+            <a href="{% url 'base' %}" class="back-button">Back</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2024 Certification Hub - All Rights Reserved
+    </div>
+
+</body>
+</html>
